@@ -15,9 +15,9 @@ namespace JustTipConsoleApp.Models
         private List<Roster> rosters = new List<Roster>();
         public ITipCalcStrategy tipCalcStrategy;
 
-        private float TotalTips = 0;
+        private decimal TotalTips = 0;
 
-        public void seTotalTips(float totalTips)
+        public void seTotalTips(decimal totalTips)
         {
             this.TotalTips = totalTips;
         }
@@ -61,14 +61,32 @@ namespace JustTipConsoleApp.Models
             }
             roster.AssignEmployeeToRoster(employee);
         }
-        public void DistributeTip()
+        public void DistributeTip(string rosName,decimal totalTips)
         {
-            if (employees.Count > 0)
+            TotalTips = totalTips;
+            if (employees.Count <= 0)
             {
                 throw new InvalidOperationException("No employees to distribute tips to.");
             }
-
-            tipCalcStrategy.CalculateTips(employees,TotalTips)
+            if (rosters.Count <= 0)
+            {
+                throw new InvalidOperationException("No Rosters  to distribute tips for.");
+            }
+            var roster = rosters.FirstOrDefault(r => r.GetRosterName() == rosName);
+            List<Employee> RosterEmployees = new List<Employee>();
+            if (roster != null)
+            {
+                RosterEmployees = roster.GetEmployeesList();
+            }
+            
+            tipCalcStrategy.CalculateTips(RosterEmployees, TotalTips);
+        }
+        public void ShowTips()
+        {
+            foreach ( var  employee in employees )
+            {
+                Console.WriteLine($"{employee.getEmployeeName()} : {employee.Tips}");
+            }
         }
     }
 }
