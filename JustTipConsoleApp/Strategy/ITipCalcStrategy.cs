@@ -10,6 +10,6 @@ namespace JustTipConsoleApp.Strategy
     //Interface to create Tip Calculation Strategy
     public interface ITipCalcStrategy
     {
-        void CalculateTips(List<Employee> employees, float totalTips);   // Place holder Method - no logic
+        void CalculateTips(List<Employee> employees, decimal totalTips);   // Place holder Method - no logic
     }
 }

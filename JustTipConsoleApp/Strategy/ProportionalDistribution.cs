@@ -11,9 +11,22 @@ namespace JustTipConsoleApp.Strategy
     internal class ProportionalDistribution : ITipCalcStrategy
     {
         //Implemets logic to calculate tips according to proportional distribution algorithm
-        public void CalculateTips(List<Employee> employees, float totalTips)
+        public void CalculateTips(List<Employee> employees, decimal totalTips)
         {
+            decimal totalHoursWorked = employees.Sum(e => e.EmployeeTotalHoursWorked());
 
+            foreach (var employee in employees)
+            {
+                decimal hoursWorked = employee.EmployeeTotalHoursWorked();
+                if (hoursWorked > 0)
+                {
+                    employee.Tips = (hoursWorked / totalHoursWorked) * totalTips;
+                }
+                else
+                {
+                    employee.Tips = 0;
+                }
+            }
         }
     }
 }

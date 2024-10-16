@@ -12,6 +12,12 @@ namespace JustTipConsoleApp.Models
 
         private List<Employee> employees = new List<Employee>();
 
+        private decimal totalHoursWorked {  get; set; }
+
+        public List<Employee> GetEmployeesList()
+        {
+            return employees;
+        }
         public string GetRosterName()
         {
             return rosterName;
@@ -25,6 +31,14 @@ namespace JustTipConsoleApp.Models
             employees.Add(emp);
         }
 
-
+        //Total hours worked by the employees in a particular roster.
+        public decimal CalculateTotalHoursWorked()
+        {
+            foreach (Employee emp in employees)
+            {
+               totalHoursWorked +=  emp.EmployeeTotalHoursWorked();
+            }
+            return totalHoursWorked;
+        }
     }
 }

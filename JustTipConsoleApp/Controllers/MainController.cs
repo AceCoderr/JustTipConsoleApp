@@ -27,9 +27,16 @@ namespace JustTipConsoleApp.Controllers
             _business.AssignEmployeesToRoster(rosName,empName);
         }
 
-        public void DistributeTips()
+        public void DistributeTips(string rosName,decimal totalTips)
         {
-            
+            _business.DistributeTip(rosName,totalTips);
         }
+
+        public void ShowTips()
+        {
+            _business.ShowTips();
+        }
+
+
     }
 }
