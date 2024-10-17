@@ -2,7 +2,9 @@
 using JustTipConsoleApp.Controllers;
 using JustTipConsoleApp.Strategy;
 using JustTipConsoleApp.Views;
+using System.Runtime.CompilerServices;
 
+[assembly: InternalsVisibleTo("JustTipTest")]
 class Program
 {
     static void Main(string[] args)

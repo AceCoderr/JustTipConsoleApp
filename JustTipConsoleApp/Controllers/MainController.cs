@@ -13,18 +13,18 @@ namespace JustTipConsoleApp.Controllers
             this._tipCalcStrategy = tipCalcStrategy;
             _business = new Business(_tipCalcStrategy);
         }
-        public void AddEmployee()
+        public void AddEmployee(string empName)
         {
-            _business.AddEmployee();
+            _business.AddEmployee(empName);
         }
-        public void CreateRoster()
+        public void CreateRoster(string rosName)
         {
-            _business.CreateRoster();
+            _business.CreateRoster(rosName);
         }
 
-        public void AssignEmployeesToRoster(string rosName, string empName)
+        public void AssignEmployeesToRoster(string rosName, string empName,DateTime startTime,DateTime endTime)
         {
-            _business.AssignEmployeesToRoster(rosName,empName);
+            _business.AssignEmployeesToRoster(rosName,empName,startTime,endTime);
         }
 
         public void DistributeTips(string rosName,decimal totalTips)

@@ -25,43 +25,50 @@ namespace JustTipConsoleApp.Models
         {
             this.tipCalcStrategy = strategy;
         }
-        public void AddEmployee()
+        public List<Employee> AddEmployee(string empName)
         {
             Employee newEmployee = new Employee();
-            Console.WriteLine("Enter Name");
-            newEmployee.setEmployeeName(Console.ReadLine());
-            employees.Add(newEmployee); 
+            newEmployee.setEmployeeName(empName);
+            employees.Add(newEmployee);
+            return employees;
         }
 
-        public void CreateRoster()
+        public List<Roster> CreateRoster(string rosName)
         {
             Roster newRoster = new Roster();
-            Console.WriteLine("Enter Roster Name");
-            string rosterName = Console.ReadLine();
-            newRoster.SetRosterName(rosterName);
+            
+            newRoster.SetRosterName(rosName);
 
             rosters.Add(newRoster);
+            return rosters;
         }
 
-        public void AssignEmployeesToRoster(string rosName,string empName)
+        public Roster AssignEmployeesToRoster(string rosName,string empName,DateTime start,DateTime end)
         {
             var employee = employees.FirstOrDefault(e => e.getEmployeeName() == empName);
             var roster = rosters.FirstOrDefault(r=>r.GetRosterName() == rosName);
             if (employee != null)
             {
-                Console.WriteLine("Enter Shift Start Time (yyyyy-MM-dd HH:mm): ");
-                DateTime start = DateTime.Parse(Console.ReadLine());
-
-                Console.WriteLine("Enter Shift End Time (yyyy-MM-dd HH:mm): ");
-                DateTime end = DateTime.Parse(Console.ReadLine());
-
                 Shift newShift = new Shift(start,end);
 
                 employee.AssignShiftToEmployee(newShift);
+                if(roster != null)
+                {
+                    roster.AssignEmployeeToRoster(employee);
+                    return roster;
+                }
+                else
+                {
+                    Console.WriteLine("No Roster found of this name.");
+                }
             }
-            roster.AssignEmployeeToRoster(employee);
+            else
+            {
+                Console.WriteLine("No Employee found of this name");
+            }
+            return roster;
         }
-        public void DistributeTip(string rosName,decimal totalTips)
+        public List<Employee> DistributeTip(string rosName,decimal totalTips)
         {
             TotalTips = totalTips;
             if (employees.Count <= 0)
@@ -79,7 +86,7 @@ namespace JustTipConsoleApp.Models
                 RosterEmployees = roster.GetEmployeesList();
             }
             
-            tipCalcStrategy.CalculateTips(RosterEmployees, TotalTips);
+            return tipCalcStrategy.CalculateTips(RosterEmployees, TotalTips);
         }
         public void ShowTips()
         {

@@ -29,17 +29,27 @@ namespace JustTipConsoleApp.Views
                 switch (choice)
                 {
                     case "1":
-                        controller.AddEmployee();
+                        Console.WriteLine("Enter Name");
+                        controller.AddEmployee(Console.ReadLine());
                         break;
                     case "2":
-                        controller.CreateRoster();
+                        Console.WriteLine("Enter Roster Name");
+                        string rosterName = Console.ReadLine();
+                        controller.CreateRoster(rosterName);
                         break;
                     case "3":
                         Console.WriteLine("Enter roster Name");
                         string rosName = Console.ReadLine();
                         Console.WriteLine("Enter Employee Name");
                         string emp = Console.ReadLine();
-                        controller.AssignEmployeesToRoster(rosName,emp);
+
+                        Console.WriteLine("Enter Shift Start Time (yyyyy-MM-dd HH:mm): ");
+                        DateTime start = DateTime.Parse(Console.ReadLine());
+
+                        Console.WriteLine("Enter Shift End Time (yyyy-MM-dd HH:mm): ");
+                        DateTime end = DateTime.Parse(Console.ReadLine());
+
+                        controller.AssignEmployeesToRoster(rosName,emp,start,end);
                         break;
                     case "4":
                         Console.WriteLine("Enter the Roster Name");
