@@ -8,25 +8,25 @@ using System.Threading.Tasks;
 namespace JustTipConsoleApp.Strategy
 {
     //Strategy 1 - Proportional Distribution to calculate tips based on worked hours by the employees
-    internal class ProportionalDistribution : ITipCalcStrategy
+    internal class EqualDistribution : ITipCalcStrategy
     {
         //Implemets logic to calculate tips according to proportional distribution algorithm
         public List<Employee> CalculateTips(List<Employee> employees, decimal totalTips)
         {
-            decimal totalHoursWorked = employees.Sum(e => e.EmployeeTotalHoursWorked());
+            int totalNumberOfEmployees = employees.Count();
 
             foreach (var employee in employees)
             {
-                decimal hoursWorked = employee.EmployeeTotalHoursWorked();
-                if (hoursWorked > 0)
+                if (totalNumberOfEmployees > 0)
                 {
-                    employee.Tips = (hoursWorked / totalHoursWorked) * totalTips;
+                    employee.Tips = totalTips/totalNumberOfEmployees;
                 }
                 else
                 {
                     employee.Tips = 0;
                 }
             }
+
             return employees;
         }
     }
