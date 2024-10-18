@@ -59,12 +59,16 @@ namespace JustTipConsoleApp.Models
                 }
                 else
                 {
-                    Console.WriteLine("No Roster found of this name.");
+                    Console.WriteLine("--------------------------------------------");
+                    Console.WriteLine("-------No Roster found of this name---------");
+                    Console.WriteLine("--------------------------------------------");
                 }
             }
             else
             {
-                Console.WriteLine("No Employee found of this name");
+                Console.WriteLine("--------------------------------------------");
+                Console.WriteLine("-------No Employee found of this name-------");
+                Console.WriteLine("--------------------------------------------");
             }
             return roster;
         }
@@ -73,11 +77,15 @@ namespace JustTipConsoleApp.Models
             TotalTips = totalTips;
             if (employees.Count <= 0)
             {
-                throw new InvalidOperationException("No employees to distribute tips to.");
+                Console.WriteLine("--------------------------------------------");
+                Console.WriteLine("-------No Employees added to businesss------");
+                Console.WriteLine("--------------------------------------------");
             }
             if (rosters.Count <= 0)
             {
-                throw new InvalidOperationException("No Rosters  to distribute tips for.");
+                Console.WriteLine("--------------------------------------------");
+                Console.WriteLine("-------No Rosters created for businesss------");
+                Console.WriteLine("--------------------------------------------");
             }
             var roster = rosters.FirstOrDefault(r => r.GetRosterName() == rosName);
             List<Employee> RosterEmployees = new List<Employee>();
@@ -85,8 +93,33 @@ namespace JustTipConsoleApp.Models
             {
                 RosterEmployees = roster.GetEmployeesList();
             }
+            else {
+                Console.WriteLine("--------------------------------------------");
+                Console.WriteLine("-------No Rosters found of name {rosName}------",rosName);
+                Console.WriteLine("--------------------------------------------");
+            }
             
             return tipCalcStrategy.CalculateTips(RosterEmployees, TotalTips);
+        }
+        
+        public void ChangeStrategy(string option)
+        {
+            var choice = int.Parse(option);
+            if (choice == 1)
+            {
+                this.tipCalcStrategy = new ProportionalDistribution();
+            }
+            else if (choice == 2)
+            {
+                this.tipCalcStrategy = new EqualDistribution();
+            }
+            else 
+            {
+                Console.WriteLine("--------------------------------------------");
+                Console.WriteLine("-----------Invalid Option Selected----------");
+                Console.WriteLine("--------------------------------------------");
+            }
+
         }
         public void ShowTips()
         {

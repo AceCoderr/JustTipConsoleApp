@@ -31,7 +31,10 @@ namespace JustTipConsoleApp.Controllers
         {
             _business.DistributeTip(rosName,totalTips);
         }
-
+        public void ChangeStrategy(string option)
+        {
+            _business.ChangeStrategy(option);
+        }
         public void ShowTips()
         {
             _business.ShowTips();

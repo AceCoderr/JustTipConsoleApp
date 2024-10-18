@@ -20,8 +20,9 @@ namespace JustTipConsoleApp.Views
                 Console.WriteLine("2. Create Roster");
                 Console.WriteLine("3. Assign Employees to a Specific Roster");
                 Console.WriteLine("4. Distribute Tips for a Specific Roster");
-                Console.WriteLine("5. Show Tip Distribution");
-                Console.WriteLine("6. Exit");
+                Console.WriteLine("5. Change Strategy");
+                Console.WriteLine("6. Show Tip Distribution");
+                Console.WriteLine("7. Exit");
 
                 Console.WriteLine("Select an Option");
                 string choice = Console.ReadLine();
@@ -71,9 +72,16 @@ namespace JustTipConsoleApp.Views
                         controller.DistributeTips(rosName1, decimalValue);
                         break;
                     case "5":
-                        controller.ShowTips();
+                        Console.WriteLine("Select Strategy");
+                        Console.WriteLine("1. Proportional Strategy (Based on Hours worked)");
+                        Console.WriteLine("2. Equal Distribution Strategy");
+                        var option = Console.ReadLine();
+                        controller.ChangeStrategy(option);
                         break;
                     case "6":
+                        controller.ShowTips();
+                        break;
+                    case "7":
                         return;
                     default:
                         Console.WriteLine("Invalid Option. Try Again");
